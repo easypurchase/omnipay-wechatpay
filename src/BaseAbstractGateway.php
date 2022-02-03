@@ -60,6 +60,8 @@ abstract class BaseAbstractGateway extends AbstractGateway
     }
 
     /**
+     * 子商户id
+     *
      * @return mixed $subMchId
      */
     public function getSubMchId()
@@ -69,7 +71,7 @@ abstract class BaseAbstractGateway extends AbstractGateway
 
     /**
      * 子商户id
-     * @param $subMchId
+     * @param mixed $subMchId
      */
     public function setSubMchId($subMchId)
     {
@@ -285,5 +287,45 @@ abstract class BaseAbstractGateway extends AbstractGateway
     public function downloadBill($parameters = array())
     {
         return $this->createRequest(DownloadBillRequest::class, $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     *
+     * @return \Omnipay\WechatPay\Message\PayBankRequest
+     */
+    public function payBank($parameters = array())
+    {
+        return $this->createRequest('\Omnipay\WechatPay\Message\PayBankRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     *
+     * @return \Omnipay\WechatPay\Message\GetPublicKeyRequest
+     */
+    public function getPublicKey($parameters = array())
+    {
+        return $this->createRequest('\Omnipay\WechatPay\Message\GetPublicKeyRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     *
+     * @return \Omnipay\WechatPay\Message\QueryBankRequest
+     */
+    public function queryBank($parameters = array())
+    {
+        return $this->createRequest('\Omnipay\WechatPay\Message\QueryBankRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     *
+     * @return \Omnipay\WechatPay\Message\CouponTransfersResponse
+     */
+    public function sendCoupon($parameters = array())
+    {
+        return $this->createRequest('\Omnipay\WechatPay\Message\CouponTransfersRequest', $parameters);
     }
 }

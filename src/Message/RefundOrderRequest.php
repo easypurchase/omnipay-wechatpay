@@ -29,7 +29,7 @@ class RefundOrderRequest extends BaseAbstractRequest
     {
         $this->validate('app_id', 'mch_id', 'out_trade_no', 'cert_path', 'key_path');
 
-        $data = array(
+        $data = [
             'appid'           => $this->getAppId(),
             'mch_id'          => $this->getMchId(),
             'device_info'     => $this->getDeviceInfo(),//<>
@@ -40,8 +40,9 @@ class RefundOrderRequest extends BaseAbstractRequest
             'refund_fee'      => $this->getRefundFee(),
             'refund_fee_type' => $this->getRefundFee(),//<>
             'op_user_id'      => $this->getOpUserId() ?: $this->getMchId(),
+            'refund_account'  => $this->getRefundAccount(),
             'nonce_str'       => md5(uniqid()),
-        );
+        ];
 
         if ($this->getSubAppId()) {
             $data['sub_appid'] = $this->getSubAppId();
@@ -56,6 +57,22 @@ class RefundOrderRequest extends BaseAbstractRequest
         $data['sign'] = Helper::sign($data, $this->getApiKey());
 
         return $data;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRefundAccount()
+    {
+        return $this->getParameter('refund_account');
+    }
+
+    /**
+     * @param mixed $refundAccount
+     */
+    public function setRefundAccount($refundAccount)
+    {
+        $this->setParameter('refund_account', $refundAccount);
     }
 
 
@@ -242,6 +259,7 @@ class RefundOrderRequest extends BaseAbstractRequest
      * @param  mixed $data The data to send
      *
      * @return ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function sendData($data)
     {

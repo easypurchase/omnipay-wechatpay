@@ -70,15 +70,21 @@ abstract class BaseAbstractRequest extends AbstractRequest
         $this->setParameter('mch_id', $mchId);
     }
 
-    public function setSubMchId($subMchId)
-    {
-        $this->setParameter('sub_mch_id', $subMchId);
-    }
-
-
+    /**
+     * @return mixed
+     */
     public function getSubMchId()
     {
         return $this->getParameter('sub_mch_id');
+    }
+
+
+    /**
+     * @param mixed $subMchId
+     */
+    public function setSubMchId($mchId)
+    {
+        $this->setParameter('sub_mch_id', $mchId);
     }
 
     /**
